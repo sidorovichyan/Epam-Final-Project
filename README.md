@@ -1,1 +1,5 @@
-# Epam-Final-Project
+## Epam Java Web Development финальный проект. 
+
+Задание финального проекта:
+
+> Система <strong>Авиакомпания</strong>. <strong>Авиакомпания</strong> имеет список рейсов. <strong>Диспетчер</strong> формирует летную <strong>Бригаду</strong> (пилоты, штурман, радист, стюардессы) на <strong>Рейс</strong>. <strong>Администратор</strong> управляет списком рейсов.
