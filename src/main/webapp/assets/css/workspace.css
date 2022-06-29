@@ -1,0 +1,635 @@
+a{
+    text-decoration: none;
+    color: black;
+}
+button
+{
+    border: none;
+}
+.wrapper
+{
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+.content
+{
+    flex: 1 0 auto;
+}
+.header {
+    width: 100%;
+    height: 100px;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: #21EDDC;
+    box-shadow: 0 0 5px black;
+}
+.header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px 0;
+}
+.header__logo {
+    font-size: 30px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    padding-left: 10px;
+}
+/* Footer */
+footer {
+    flex: 0 0 auto;
+    background-color: #21EDDC;
+    box-shadow: 0 0 10px black;
+    /*float: left;*/
+
+    /*width: 100%;*/
+    margin-top: 5%;
+}
+.footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px 0;
+}
+.footer__block {
+    width: 33.33333%;
+    padding: 0 15px;
+    text-align: center;
+}
+.footer__title {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.footer__address {
+    font-size: 14px;
+    line-height: 1.5;
+    font-style: normal;
+    cursor: pointer;
+
+}
+
+.footer__text {
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+
+}
+.copyright {
+    padding: 20px 0;
+    background-color: #21EDDC;
+}
+.copyright__text {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+.copyright__text span {
+    color: #fff;
+}
+
+/* Nav
+===================*/
+.nav {
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.nav__link {
+    margin-left: 50px;
+    color: #fff;
+    text-decoration: none;
+
+
+}
+.nav__link:first-child {
+    margin-left: 0;
+}
+.nav__link:hover {
+
+    cursor: pointer;
+}
+.account {
+    display: flex;
+    position: relative;
+
+}
+.account-1 {
+    font-weight: 700;
+    font-size: 18px;
+    position: relative;
+    padding-left: 5px;
+    padding-right: 20px;
+    top: 5px;
+}
+.account::before {
+    display: block;
+    content:"";
+    position: absolute;
+    left: -60px;
+    top: 0;
+    width: 43px;
+    height: 43px;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/2636/2636630.png");
+    background-size: contain;
+}
+.header__img
+{
+    float: left;
+}
+.header__img img
+{
+    width: 64px;
+    float: left;
+    display: block;
+}
+.btn2 {
+    display: inline-block;
+    vertical-align: top;
+    padding: 14px 17px;
+
+
+    border-radius: 15px;
+    color: black;
+    border: 0;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-size:10px;
+    background-color: #e84545;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.btn2:hover {
+    color: black;
+    border-radius: 0;
+}
+.mybutton
+{
+    width: 300px;
+    margin-top: 2%;
+    height: auto;
+    text-align: center;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px black;
+    cursor: pointer;
+    float: left;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    background:#e9e9e9;
+    transition: 0.2s;
+}
+.mybutton:hover
+{
+    border-radius: 0;
+    color: black;
+    text-decoration: none;
+    box-shadow: 0 0 3px green;
+}
+.new-entity
+{
+    background: #83fca6;
+}
+.box-item-user
+{
+    float: left;
+    height: 80px;
+    width: 100%;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.box-item-user:hover
+{
+    background: #3c97bf;
+}
+.disctip
+{
+    height: 50px;
+    font-size: 13px;
+    color: gray;
+    font-weight: normal;
+}
+.disctip:hover
+{
+    background: none;
+}
+.item-user-img{
+    float: left;
+    width: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.item-user-img img
+{
+    width: 48px;
+}
+.item-user-id{
+    width: 20%;
+    float: left;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+
+}
+.item-user-login
+{
+    width: 40%;
+    float: left;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+
+}
+.item-user-role
+{
+    font-size: 18px;
+    font-weight: 600;
+    width: 30%;
+    float: left;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+#user-buttons
+{
+    display: none;
+}
+#new-user
+{
+    display: none;
+}
+#new-plane
+{
+    display: none;
+}
+.form-opis
+{
+    width: 100%;
+    text-align: center;
+}
+.form-new-user{
+    width: 100%;
+    background: #3c97bf;
+    float: left;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 30px;
+
+    align-items: center;
+}
+.form-new-user-disc
+{
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: red;
+    font-weight: 600;
+    padding: 10px;
+}
+.form-new-user label
+{
+    width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input-descrip
+{
+    font-size: 16px;
+    width: 130px;
+    color: black;
+    font-weight: 600;
+    padding: 10px;
+
+}
+.form-new-user input
+{
+    border: 1px solid gray;
+    width: 55%;
+    float: left;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 15px;
+    transition: 0.2s;
+    outline: none;
+}
+.form-new-user select{
+
+    border: 1px solid gray;
+    width: 55%;
+    float: left;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 15px;
+    transition: 0.2s;
+    outline: none;
+}
+.form-new-user input:active
+{
+    outline: 1px solid green;
+}
+.form-new-user input:focus
+{
+    outline: 1px solid green;
+}
+.button-new-user
+{
+    width: 55%;
+}
+.active-button
+{
+    border-radius: 0;
+    color: black;
+    text-decoration: none;
+    box-shadow: 0 0 3px green;
+
+}
+#info-pilot
+{
+    display: none;
+}
+.form-new-plane
+{
+    float: left;
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: #21EDDC;
+    border-radius: 30px;
+}
+.form-new-plane label
+{
+    width: 100%;
+    float: left;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-new-plane input
+{
+    border: 1px solid gray;
+    width: 50%;
+    float: left;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 15px;
+    transition: 0.2s;
+    outline: none;
+}
+.new-plane-button
+{
+    width: 50%;
+}
+.form-new-plane input:active
+{
+    outline: 1px solid green;
+}
+.form-new-plane input:focus
+{
+    outline: 1px solid green;
+}
+
+.img-plane-form
+{
+    display: block;
+    float: left;
+    width: 48px;
+}
+.discrip-new-plane
+{
+    width: 100%;
+    text-align: center;
+    float: left;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.discrip-new-plane span
+{
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    float: left;
+}
+#all-plane-list
+{
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.list-box
+{
+
+    border: 1px solid gray;
+    padding: 10px;
+    margin-top: 0.2%;
+    width: 100%;
+    height: 70px;
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.list-box:hover
+{
+    background: #3c97bf;
+}
+.list-plane-img
+{
+
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 5%;
+    height: 100%;
+}
+.list-plane-img img
+{
+    display: block;
+    width: 48px;
+    float: left;
+}
+.list-plane-id
+{
+    float: left;
+
+    width: 10%;
+    height: 100%;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.list-plane-airport{
+    width: 20%;
+    float: left;
+    color: black;
+
+
+    height: 100%;
+    font-size: 18px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.list-plane-date
+{
+    width: 40%;
+    float: left;
+    font-size: 18px;
+    font-weight: 600;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.list-plane-model{
+    width: 25%;
+    float: left;
+    font-size: 18px;
+    font-weight: 600;
+    height: 100%;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.full-team
+{
+    background: green;
+}
+.no-team{
+    background: red;
+}
+.plane-users
+{
+    float: left;
+    height: auto;
+    width: 100%;
+    padding-bottom: 10px;
+}
+.plane-users-dicr
+{
+    font-size: 18px;
+    width: 100%;
+    padding: 10px;
+    font-weight: 600;
+    float: left;
+}
+.plane-users-box
+{
+    cursor: pointer;
+    border-bottom: 1px solid gray;
+    float: left;
+    transition: 0.2s;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+.plane-users-box:hover
+{
+    background: #3c97bf;
+}
+
+.plane-users-name, .plane-users-phone, .plane-users-pos, .plane-users-img
+{
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    float: left;
+}
+.plane-users-img img
+{
+    transition: 0.2s;
+    opacity: 0;
+}
+.plane-users-box:hover .plane-users-img img
+{
+   opacity: 1;
+}
+.plane-users-pos
+{
+    color: red;
+    text-shadow: 1px 0 0 black;
+
+}
+.plane-users-buttons
+{
+    width: 100%;
+    float: left;
+}
+.plane-users-buttons a{
+    color: black;
+    text-decoration: none;
+}
+.plane-users-buttons a:hover
+{
+    color: black;
+    text-decoration: none;
+}
+.add-to-plane
+{
+    padding: 15px;
+    border-radius: 15px;
+    background: limegreen;
+    box-shadow: 1px 1px 3px black;
+    font-weight: 600;
+    float: left;
+    margin: 1%;
+    text-align: center;
+    transition: 0.2s;
+}
+.add-to-plane:hover
+{
+    border-radius: 0;
+    box-shadow: none;
+}

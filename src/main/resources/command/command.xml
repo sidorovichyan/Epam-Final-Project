@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands xmlns="http://ynairline.com/command"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://ynairline.com/command http://ynairline.com/command.xsd">
+    <command>
+        <name>WelcomePage</name>
+        <class>com.epam.ynairlineepam.command.impl.general.WelcomeCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>error</name>
+        <class>com.epam.ynairlineepam.command.impl.error.Error</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>logIn</name>
+        <class>com.epam.ynairlineepam.command.impl.general.LogInCommand</class>
+        <method>POST</method>
+    </command>
+    <command>
+        <name>workspace</name>
+        <class>com.epam.ynairlineepam.command.impl.general.WorkspaceCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>viewUserList</name>
+        <class>com.epam.ynairlineepam.command.impl.user.ViewUserListCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>addNewUser</name>
+        <class>com.epam.ynairlineepam.command.impl.user.AddNewUserCommand</class>
+        <method>POST</method>
+    </command>
+    <command>
+        <name>addNewPlane</name>
+        <class>com.epam.ynairlineepam.command.impl.plane.AddNewPlaneCommand</class>
+        <method>POST</method>
+    </command>
+    <command>
+        <name>viewAllPlaneList</name>
+        <class>com.epam.ynairlineepam.command.impl.plane.ViewAllPlaneListCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>viewUser</name>
+        <class>com.epam.ynairlineepam.command.impl.user.ViewUserCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>viewPlane</name>
+        <class>com.epam.ynairlineepam.command.impl.plane.ViewPlaneCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>viewEmployeeCanAddPlane</name>
+        <class>com.epam.ynairlineepam.command.impl.plane.ViewEmployeeCanAddPlaneCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>viewDeparturePlane</name>
+        <class>com.epam.ynairlineepam.command.impl.plane.ViewDeparturePlaneListCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>addToPlaneEmployee</name>
+        <class>com.epam.ynairlineepam.command.impl.plane.AddEmployeeToPlaneCommand</class>
+        <method>GET</method>
+    </command>
+
+
+
+
+</commands>
