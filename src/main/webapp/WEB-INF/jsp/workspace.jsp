@@ -29,10 +29,10 @@
             });
         </script>
     </c:if>
-    <c:if test="${param.success}">
+    <c:if test="${param.success || requestScope.get('success') != null}">
         <script>
             window.addEventListener("load", function () {
-                swal("ОК", "Действие завершилось успешно", "success");
+                swal("ОК", "Успешно", "success");
             });
         </script>
     </c:if>
@@ -50,7 +50,8 @@
                     </div>
                     <div id="all-plane-list" class="col-12">
                         <c:forEach var="plane" items="${requestScope.get('allDeparturePlanes')}">
-                            <a style="color: black" href="${pageContext.request.contextPath}/?command=viewPlane&planeId=${plane.id}">
+                            <a style="color: black"
+                               href="${pageContext.request.contextPath}/?command=viewPlane&planeId=${plane.id}">
                                 <div class="list-box <c:if test="${plane.teamFull == true}">full-team</c:if> <c:if test="${plane.teamFull == false}">no-team</c:if> ">
                                     <div class="list-plane-img">
                                         <img src="${pageContext.request.contextPath}/assets/img/airplane.png">
@@ -67,6 +68,10 @@
                             </a>
                         </c:forEach>
                     </div>
+                    <c:if test="${empty requestScope.get('allDeparturePlanes') && param.planeId == null}">
+                        <div class="gray-text-center">Нет рейсов</div>
+                    </c:if>
+
                     <div id="plane-info" class="col-12 my-3">
                         <c:if test="${param.planeId != null}">
                             <div class="list-box" style="background: #3c97bf;">
@@ -96,13 +101,18 @@
                                         <div class="col-3 plane-users-phone">${userOnPlane.phone}</div>
                                         <div class="col-3 plane-users-phone">${userOnPlane.address}</div>
                                         <div class="col-3 plane-users-pos">${userOnPlane.position}</div>
-                                        <div class="col-1 plane-users-img"><img alt="Удалить" width="40px"
-                                                                                src="${pageContext.request.contextPath}/assets/img/remove.png">
-                                        </div>
+                                        <a href="${pageContext.request.contextPath}/?command=deleteEmployeeFromPlane&planeID=${param.planeId}&idUser=${userOnPlane.id}">
+                                            <div class="col-1 plane-users-img"><img alt="Удалить" width="40px"
+                                                                                    src="${pageContext.request.contextPath}/assets/img/remove.png">
+                                            </div>
+                                        </a>
                                     </div>
                                 </c:forEach>
                                 <c:if test="${empty pageContext.request.getAttribute('teamPlaneList')}">
-                                    <div class="col-12 my-4" style="text-align: center;font-size: 24px;font-weight: 600;color: grey">Команда пуста</div>
+                                    <div class="col-12 my-4"
+                                         style="text-align: center;font-size: 24px;font-weight: 600;color: grey">Команда
+                                        пуста
+                                    </div>
                                 </c:if>
 
                             </div>
@@ -148,11 +158,18 @@
                                             <div class="col-3 plane-users-phone">${entry.key.phone}</div>
                                             <div class="col-3 plane-users-name">${entry.key.address}</div>
                                             <div class="col-3 plane-users-img">${entry.value}</div>
-                                            <a href="${pageContext.request.contextPath}/?command=addToPlaneEmployee&planeId=${pageContext.request.getAttribute('planeInfo').id}&employeeId=${entry.key.id}"><div class="col-1 plane-users-img"><img width="40px" alt="Добавить" src="${pageContext.request.contextPath}/assets/img/add.png"></div></a>
+                                            <a href="${pageContext.request.contextPath}/?command=addToPlaneEmployee&planeId=${pageContext.request.getAttribute('planeInfo').id}&employeeId=${entry.key.id}">
+                                                <div class="col-1 plane-users-img"><img width="40px" alt="Добавить"
+                                                                                        src="${pageContext.request.contextPath}/assets/img/add.png">
+                                                </div>
+                                            </a>
                                         </div>
                                     </c:forEach>
                                     <c:if test="${empty pageContext.request.getAttribute('canAddToPlaneList')}">
-                                        <div class="col-12 my-4 py-5" style="text-align: center;font-size: 24px;font-weight: 600;color: grey">Нет подходящих</div>
+                                        <div class="col-12 my-4 py-5"
+                                             style="text-align: center;font-size: 24px;font-weight: 600;color: grey">Нет
+                                            подходящих
+                                        </div>
                                     </c:if>
                                 </div>
                             </c:if>
@@ -168,15 +185,20 @@
                             <a href="${pageContext.request.contextPath}/?command=viewUserList">
                                 <div class="mybutton but-users mx-2">Список пользователей</div>
                             </a>
+                            <a href="${pageContext.request.contextPath}/?command=viewDeparturePlane">
+                                <div class="mybutton but-plane mx-2">Ближайшие рейсы</div>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/?command=viewAllPlaneList">
+                                <div class="mybutton but-plane mx-2">Все рейсы</div>
+                            </a>
+
+                        </div>
+                        <div class="col-12">
+
                             <div class="mybutton but-users mx-2 new-entity"
                                  onclick="changeWorkspace(this,'NewUser')">
                                 Новый пользователь
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <a href="${pageContext.request.contextPath}/?command=viewAllPlaneList">
-                                <div class="mybutton but-plane mx-2">Список рейсов</div>
-                            </a>
                             <div class=" mybutton but-users mx-2 new-entity"
                                  onclick="changeWorkspace(this,'NewPlane')">
                                 Новый рейс
@@ -207,6 +229,26 @@
                             </c:forEach>
                         </div>
                         <c:import url="templates/planeList.jsp"/>
+                        <div id="list-departure" class="col-12">
+                            <c:forEach var="plane" items="${requestScope.get('allDeparturePlanes')}">
+                                <a style="color: black"
+                                   href="${pageContext.request.contextPath}/?command=viewPlane&planeId=${plane.id}">
+                                    <div class="list-box <c:if test="${plane.teamFull == true}">full-team</c:if> <c:if test="${plane.teamFull == false}">no-team</c:if> ">
+                                        <div class="list-plane-img">
+                                            <img src="${pageContext.request.contextPath}/assets/img/airplane.png">
+                                        </div>
+                                        <div class="list-plane-id">
+                                            <p>${plane.id}</p>
+                                        </div>
+                                        <div class="list-plane-airport"><p>${plane.departureAirport}
+                                            &#8594; ${plane.arrivalAirport}</p></div>
+                                        <div class="list-plane-date"><p>${plane.departureDateTime}
+                                            &#8594; ${plane.arrivalDateTime}</p></div>
+                                        <div class="list-plane-model"><p>${plane.planeType}</p></div>
+                                    </div>
+                                </a>
+                            </c:forEach>
+                        </div>
                         <div id="new-user" class="col-12">
                             <h4 class="form-opis">Создание пользователя</h4>
                             <div class="form-new-user-disc">Уважаемые Админы, при заполнении данных будьте придельно
@@ -408,14 +450,119 @@
                                 </form>
                             </c:if>
                         </div>
+                        <div id="plane-info" class="col-12 my-3">
+                            <c:if test="${param.planeId != null}">
+                                <div class="list-box" style="background: #3c97bf;">
+                                    <div class="list-plane-img">
+                                        <img src="${pageContext.request.contextPath}/assets/img/airplane.png">
+                                    </div>
+                                    <div class="list-plane-id">
+                                        <p>${pageContext.request.getAttribute('planeInfo').id}</p>
+                                    </div>
+                                    <div class="list-plane-airport">
+                                        <p>${pageContext.request.getAttribute('planeInfo').departureAirport}
+                                            &#8594; ${pageContext.request.getAttribute('planeInfo').arrivalAirport}</p>
+                                    </div>
+                                    <div class="list-plane-date">
+                                        <p>${pageContext.request.getAttribute('planeInfo').departureDateTime}
+                                            &#8594; ${pageContext.request.getAttribute('planeInfo').arrivalDateTime}</p>
+                                    </div>
+                                    <div class="list-plane-model">
+                                        <p>${pageContext.request.getAttribute('planeInfo').planeType}</p>
+                                    </div>
+                                </div>
+                                <div class="plane-users my-3">
+                                    <div class="plane-users-dicr my-3">Состав бригады:</div>
+                                    <c:forEach var="userOnPlane" items="${requestScope.get('teamPlaneList')}">
+                                        <div class="plane-users-box" style="background: #3c97bf;">
+                                            <div class="col-2 plane-users-name">${userOnPlane.fullName}</div>
+                                            <div class="col-3 plane-users-phone">${userOnPlane.phone}</div>
+                                            <div class="col-3 plane-users-phone">${userOnPlane.address}</div>
+                                            <div class="col-3 plane-users-pos">${userOnPlane.position}</div>
+                                            <div class="col-1 plane-users-img"><img alt="Удалить" width="40px"
+                                                                                    src="${pageContext.request.contextPath}/assets/img/remove.png">
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                    <c:if test="${empty pageContext.request.getAttribute('teamPlaneList')}">
+                                        <div class="col-12 my-4"
+                                             style="text-align: center;font-size: 24px;font-weight: 600;color: grey">
+                                            Команда
+                                            пуста
+                                        </div>
+                                    </c:if>
+
+                                </div>
+                            </c:if>
+                        </div>
                     </div>
-
-
                 </div>
             </c:when>
 
             <c:when test="${sessionScope.roleUser == 'user'}">
-                your nav bar for user112
+                <div class="container">
+                    <div class="row py-3">
+                        <div class="col-12">
+                            <a href="${pageContext.request.contextPath}/?command=viewDeparturePlaneUser&idUser=${pageContext.session.getAttribute('idUser')}">
+                                <div class="mybutton but-plane mx-2">Список рейсов</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <c:forEach var="plane" items="${requestScope.get('allDeparturePlanes')}">
+                            <a style="color: black"
+                               href="${pageContext.request.contextPath}/?command=viewPlane&planeId=${plane.id}">
+                                <div class="list-box">
+                                    <div class="list-plane-img">
+                                        <img src="${pageContext.request.contextPath}/assets/img/airplane.png">
+                                    </div>
+                                    <div class="list-plane-id">
+                                        <p>${plane.id}</p>
+                                    </div>
+                                    <div class="list-plane-airport"><p>${plane.departureAirport}
+                                        &#8594; ${plane.arrivalAirport}</p></div>
+                                    <div class="list-plane-date"><p>${plane.departureDateTime}
+                                        &#8594; ${plane.arrivalDateTime}</p></div>
+                                    <div class="list-plane-model"><p>${plane.planeType}</p></div>
+                                </div>
+                            </a>
+                        </c:forEach>
+                    </div>
+                    <div class="col-12 my-3">
+                        <c:if test="${param.planeId != null}">
+                            <div class="list-box" style="background: #3c97bf;">
+                                <div class="list-plane-img">
+                                    <img src="${pageContext.request.contextPath}/assets/img/airplane.png">
+                                </div>
+                                <div class="list-plane-id">
+                                    <p>${pageContext.request.getAttribute('planeInfo').id}</p>
+                                </div>
+                                <div class="list-plane-airport">
+                                    <p>${pageContext.request.getAttribute('planeInfo').departureAirport}
+                                        &#8594; ${pageContext.request.getAttribute('planeInfo').arrivalAirport}</p>
+                                </div>
+                                <div class="list-plane-date">
+                                    <p>${pageContext.request.getAttribute('planeInfo').departureDateTime}
+                                        &#8594; ${pageContext.request.getAttribute('planeInfo').arrivalDateTime}</p>
+                                </div>
+                                <div class="list-plane-model">
+                                    <p>${pageContext.request.getAttribute('planeInfo').planeType}</p>
+                                </div>
+                            </div>
+                            <div class="plane-users my-3">
+                                <div class="plane-users-dicr my-3">Состав бригады:</div>
+                                <c:forEach var="userOnPlane" items="${requestScope.get('teamPlaneList')}">
+                                    <div class="plane-users-box" style="background: #3c97bf;">
+                                        <div class="col-2 plane-users-name">${userOnPlane.fullName}</div>
+                                        <div class="col-3 plane-users-phone">${userOnPlane.phone}</div>
+                                        <div class="col-3 plane-users-phone">${userOnPlane.address}</div>
+                                        <div class="col-3 plane-users-pos">${userOnPlane.position}</div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
             </c:when>
         </c:choose>
     </div>
@@ -439,6 +586,7 @@
             document.getElementById('all-plane-list').style.display = 'none';
             document.getElementById('new-plane').style.display = 'none';
             document.getElementById('used-details').style.display = 'none';
+            document.getElementById('list-departure').style.display = 'none';
 
             document.getElementById('new-user').style.display = 'block';
         } else if (x === 'NewPlane') {
@@ -447,6 +595,8 @@
             document.getElementById('user-list').style.display = 'none';
             document.getElementById('new-plane').style.display = 'block';
             document.getElementById('new-user').style.display = 'none';
+            document.getElementById('list-departure').style.display = 'none';
+
         }
 
 

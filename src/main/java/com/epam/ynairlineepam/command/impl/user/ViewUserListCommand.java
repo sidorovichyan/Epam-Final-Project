@@ -1,7 +1,6 @@
 package com.epam.ynairlineepam.command.impl.user;
 
 import com.epam.ynairlineepam.command.Command;
-import com.epam.ynairlineepam.command.util.CommandHelper;
 import com.epam.ynairlineepam.entity.User;
 import com.epam.ynairlineepam.service.UserService;
 import com.epam.ynairlineepam.service.exception.ServiceException;
@@ -28,8 +27,8 @@ public class ViewUserListCommand implements Command {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();
         try {
-            List<User> userList =  userService.getListUser();
-            request.setAttribute(USERS_REQUEST_ATTR,userList);
+            List<User> userList = userService.getListUser();
+            request.setAttribute(USERS_REQUEST_ATTR, userList);
         } catch (ServiceException e) {
             logger.warn(e);
             e.printStackTrace();

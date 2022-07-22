@@ -67,6 +67,23 @@
         <class>com.epam.ynairlineepam.command.impl.plane.AddEmployeeToPlaneCommand</class>
         <method>GET</method>
     </command>
+    <command>
+        <name>LogOutCommand</name>
+        <class>com.epam.ynairlineepam.command.impl.general.LogOutCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>viewDeparturePlaneUser</name>
+        <class>com.epam.ynairlineepam.command.impl.plane.ViewDeparturePlaneUserCommand</class>
+        <method>GET</method>
+    </command>
+    <command>
+        <name>deleteEmployeeFromPlane</name>
+        <class>com.epam.ynairlineepam.command.impl.plane.DeleteEmployeeFromPlaneCommand</class>
+        <method>GET</method>
+    </command>
+
+
 
 
 

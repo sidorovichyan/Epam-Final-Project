@@ -72,6 +72,18 @@ public class MySQLPlaneDAO implements PlaneDAO {
             "inner join users_has_flight fl on fl.users_id_user != p.id " +
             "where r.position = ? ";
 
+    private static final String SELECT_USER_PLANE = "SELECT f.id,f.departure_airport,f.departure_date,f.arrival_airport,f.arrival_date,f.plane FROM ynairline.users_has_flight us " +
+            "INNER JOIN flight f on us.flight_id = f.id " +
+            "WHERE (us.users_id_user = ? and f.departure_date>now())";
+
+    private static final String DELETE_EMPLOYEE_FROM_FLIGHT = "DELETE FROM ynairline.users_has_flight us where exists " +
+            "(select * from flight f, `users-details` usd " +
+            "where f.id = ?  " +
+            "and usd.id = ? " +
+            "and usd.users_id_user = us.users_id_user " +
+            "and f.departure_date > now() " +
+            "and us.flight_id = ?) ";
+
     private static final String POSITION_PILOT = "Пилот";
     private static final String POSITION_NAVIGATOR = "Штурман";
     private static final String POSITION_RADIOMAN = "Радист";
@@ -208,6 +220,58 @@ public class MySQLPlaneDAO implements PlaneDAO {
             connectionPool = ConnectionPool.getInstance();
             Connection connection = connectionPool.takeConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PLANE_DEPARTURE);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                plane = new Plane();
+                plane.setId(resultSet.getInt(1));
+                plane.setDepartureAirport(resultSet.getString(2));
+
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultSet.getString(3));
+                plane.setDepartureDateTime(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(date));
+
+                plane.setArrivalAirport(resultSet.getString(4));
+                date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultSet.getString(5));
+                plane.setArrivalDateTime(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(date));
+                plane.setPlaneType(resultSet.getString(6));
+                chekingTeamPlane(plane, connection);
+                planeList.add(plane);
+            }
+            connectionPool.closeConnection(connection, preparedStatement);
+        } catch (ConnectionPoolException | SQLException | ParseException e) {
+            logger.warn("Can not get records from Database "  + e);
+            throw new DAOException("Can not get records from Database " + e);
+        }
+        return planeList;
+    }
+
+    @Override
+    public void deleteEmployeeFromPlane(int idUser, int idPlane) throws DAOException {
+        Connection connection;
+        connectionPool = ConnectionPool.getInstance();
+        try {
+            connection = connectionPool.takeConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_EMPLOYEE_FROM_FLIGHT);
+            preparedStatement.setInt(1,idPlane);
+            preparedStatement.setInt(2,idUser);
+            preparedStatement.setInt(3,idPlane);
+            preparedStatement.executeUpdate();
+            connectionPool.closeConnection(connection,preparedStatement);
+        } catch (ConnectionPoolException | SQLException e) {
+            logger.warn("Can not delete records from Database "  + e);
+            throw new DAOException("Can not delete records from Database " + e);
+        }
+    }
+
+    @Override
+    public List<Plane> getListDepartingPlaneUser(int idUser) throws DAOException {
+        ResultSet resultSet = null;
+        List<Plane> planeList = new ArrayList<>();
+        Plane plane;
+        try {
+            connectionPool = ConnectionPool.getInstance();
+            Connection connection = connectionPool.takeConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_PLANE);
+            preparedStatement.setInt(1,idUser);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 plane = new Plane();

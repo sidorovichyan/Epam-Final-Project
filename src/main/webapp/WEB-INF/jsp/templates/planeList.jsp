@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="now" class="java.util.Date"/>
 <%--
   Created by IntelliJ IDEA.
   User: nikif
@@ -9,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="all-plane-list" class="col-12">
     <c:forEach var="plane" items="${requestScope.get('allPlanes')}">
-        <div class="list-box <c:if test="${plane.teamFull == true}">full-team</c:if> <c:if test="${plane.teamFull == false}">no-team</c:if> ">
+        <div class="list-box  <c:if test="${plane.teamFull == true}">full-team</c:if> <c:if test="${plane.teamFull == false}">no-team</c:if> ">
             <div class="list-plane-img">
                 <img src="${pageContext.request.contextPath}/assets/img/airplane.png">
             </div>

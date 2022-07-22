@@ -2,10 +2,6 @@ package com.epam.ynairlineepam.command.impl.user;
 
 import com.epam.ynairlineepam.command.Command;
 import com.epam.ynairlineepam.command.util.CommandHelper;
-import com.epam.ynairlineepam.dao.UserDAO;
-import com.epam.ynairlineepam.entity.PilotDetails;
-import com.epam.ynairlineepam.entity.User;
-import com.epam.ynairlineepam.entity.UserDetails;
 import com.epam.ynairlineepam.service.UserService;
 import com.epam.ynairlineepam.service.exception.ServiceException;
 import com.epam.ynairlineepam.service.factory.ServiceFactory;
@@ -14,7 +10,6 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class AddNewUserCommand implements Command {
@@ -50,19 +45,6 @@ public class AddNewUserCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-//        HttpSession session = request.getSession(false);
-//        if(session == null)
-//        {
-//            response.sendRedirect(MAIN_PAGE);
-//            return;
-//        }
-//        if(session.getAttribute(USER_LOGIN_SESSION) == null)
-//        {
-//            response.sendRedirect(MAIN_PAGE);
-//            return;
-//        }
-
         String login = request.getParameter(USER_LOGIN);
         String password = request.getParameter(USER_PASSWORD);
         String fio = request.getParameter(USER_FIO);

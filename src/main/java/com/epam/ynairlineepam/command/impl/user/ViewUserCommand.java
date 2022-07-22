@@ -2,7 +2,6 @@ package com.epam.ynairlineepam.command.impl.user;
 
 import com.epam.ynairlineepam.command.Command;
 import com.epam.ynairlineepam.command.util.CommandHelper;
-import com.epam.ynairlineepam.entity.User;
 import com.epam.ynairlineepam.entity.UserDetails;
 import com.epam.ynairlineepam.service.UserService;
 import com.epam.ynairlineepam.service.exception.ServiceException;
@@ -13,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class ViewUserCommand implements Command {
     private final static Logger logger = Logger.getLogger(ViewUserListCommand.class);
@@ -30,8 +28,8 @@ public class ViewUserCommand implements Command {
         UserService userService = serviceFactory.getUserService();
         int id = CommandHelper.getInt(request.getParameter(USER_REQUEST_ID));
         try {
-            UserDetails user =  userService.findUserDetailsById(id);
-            request.setAttribute(USERS_REQUEST_ATTR,user);
+            UserDetails user = userService.findUserDetailsById(id);
+            request.setAttribute(USERS_REQUEST_ATTR, user);
         } catch (ServiceException e) {
             logger.warn(e);
             e.printStackTrace();

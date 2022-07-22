@@ -17,7 +17,7 @@
 
             <div class="nav__link account">
                 <div class="nav__link account-1">${pageContext.session.getAttribute("loginUser")}</div>
-                <a class="btn2  btn--red" href="/panel/exit">Выход</a>
+                <a style="text-decoration: none" class="btn2  btn--red" href="${pageContext.request.contextPath}/?command=LogOutCommand">Выход</a>
             </div>
         </div>
     </div>

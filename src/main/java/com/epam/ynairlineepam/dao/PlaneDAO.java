@@ -16,9 +16,14 @@ public interface PlaneDAO {
                      int numberRadioman) throws DAOException;
 
     void addEmployeeToPlane(int employeeId, int planeId) throws DAOException;
+
     List<Plane> getAllPlaneList() throws DAOException;
 
     List<Plane> getListDepartingPlane() throws DAOException;
+
+    void deleteEmployeeFromPlane(int idUser, int idPlane) throws DAOException;
+
+    List<Plane> getListDepartingPlaneUser(int idUser) throws DAOException;
 
     Plane getPlaneById(int id) throws  DAOException;
 

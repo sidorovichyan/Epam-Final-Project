@@ -1,13 +1,10 @@
 package com.epam.ynairlineepam.command.impl.plane;
 
 import com.epam.ynairlineepam.command.Command;
-import com.epam.ynairlineepam.command.impl.user.ViewUserListCommand;
 import com.epam.ynairlineepam.command.util.CommandHelper;
-import com.epam.ynairlineepam.dao.PlaneDAO;
 import com.epam.ynairlineepam.entity.Plane;
 import com.epam.ynairlineepam.entity.UserDetails;
 import com.epam.ynairlineepam.service.PlaneService;
-import com.epam.ynairlineepam.service.UserService;
 import com.epam.ynairlineepam.service.exception.ServiceException;
 import com.epam.ynairlineepam.service.factory.ServiceFactory;
 import org.apache.log4j.Logger;

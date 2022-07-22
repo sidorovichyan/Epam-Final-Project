@@ -12,21 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AddEmployeeToPlaneCommand implements Command {
+public class DeleteEmployeeFromPlaneCommand implements Command {
 
+    private final static Logger logger = Logger.getLogger(AddNewPlaneCommand.class);
 
-    private final static Logger logger = Logger.getLogger(AddEmployeeToPlaneCommand.class);
-
-
-    private static final String MAIN_PAGE = "/?command=WelcomePage";
-
-    private static final String PLANE_ID = "planeId";
-
-    private static final String EMPLOYEE_ID = "employeeId";
+    private static final String ID_USER = "idUser";
+    private static final String ID_PLANE = "planeID";
 
     private static final String ID_PLANE_URL = "planeId";
     private static final String WORK_PAGE = "/?command=viewPlane";
-
 
     private static final String ERROR_REQUEST_ATTR = "error";
     private static final String SUCCESS_REQUEST_ATTR = "success";
@@ -35,22 +29,19 @@ public class AddEmployeeToPlaneCommand implements Command {
 
     private static final String EQ = "=";
 
-
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int employeeId = CommandHelper.getInt(request.getParameter(EMPLOYEE_ID));
-        int planeId = CommandHelper.getInt(request.getParameter(PLANE_ID));
-
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         PlaneService planeService = serviceFactory.getPlaneService();
+        int idUser = CommandHelper.getInt(request.getParameter(ID_USER));
+        int idPlane = CommandHelper.getInt(request.getParameter(ID_PLANE));
         try {
-            planeService.addEmployeeToPlane(employeeId, planeId);
-            request.setAttribute(SUCCESS_REQUEST_ATTR, SUCCESS_REQUEST_ATTR);
-            request.getRequestDispatcher(WORK_PAGE + AMP + ID_PLANE_URL + EQ + planeId).forward(request, response);
+            planeService.deleteEmployeeFromPlane(idUser,idPlane);
         } catch (ServiceException e) {
             logger.warn(e);
-            response.sendRedirect(WORK_PAGE + AMP + ERROR_REQUEST_ATTR + EQ + true);
+            response.sendRedirect(WORK_PAGE+AMP+ERROR_REQUEST_ATTR+EQ+true);
         }
-
+        request.setAttribute(SUCCESS_REQUEST_ATTR,SUCCESS_REQUEST_ATTR);
+        request.getRequestDispatcher(WORK_PAGE + AMP + ID_PLANE_URL + EQ + idPlane).forward(request, response);
     }
 }

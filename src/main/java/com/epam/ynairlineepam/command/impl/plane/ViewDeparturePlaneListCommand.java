@@ -1,7 +1,6 @@
 package com.epam.ynairlineepam.command.impl.plane;
 
 import com.epam.ynairlineepam.command.Command;
-import com.epam.ynairlineepam.command.impl.user.ViewUserListCommand;
 import com.epam.ynairlineepam.entity.Plane;
 import com.epam.ynairlineepam.service.PlaneService;
 import com.epam.ynairlineepam.service.exception.ServiceException;
@@ -12,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 public class ViewDeparturePlaneListCommand implements Command {
@@ -25,6 +23,7 @@ public class ViewDeparturePlaneListCommand implements Command {
 
     private static final String MAIN_PAGE = "/?command=WelcomePage";
 
+    private static final String EMPTY_LIST_PLANE = "emptyListPlane";
     private static final String ERROR_REQUEST_ATTR = "error";
     private static final String SUCCESS_REQUEST_ATTR = "success";
 
@@ -38,6 +37,10 @@ public class ViewDeparturePlaneListCommand implements Command {
         PlaneService planeService = serviceFactory.getPlaneService();
         try {
             List<Plane> planeList = planeService.getListDepartingPlane();
+            if(planeList == null || planeList.isEmpty())
+            {
+                request.setAttribute(EMPTY_LIST_PLANE,EMPTY_LIST_PLANE);
+            }
             request.setAttribute(PLANE_LIST_REQUEST,planeList);
         } catch (ServiceException e) {
             logger.warn(e);

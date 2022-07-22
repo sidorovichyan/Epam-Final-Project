@@ -3,9 +3,7 @@ package com.epam.ynairlineepam.controller.filter;
 import javax.servlet.*;
 import java.io.IOException;
 
-/**
- * Sets character encoding for every request.
- */
+
 public class CharsetFilter implements Filter {
 
     private String defaultEncoding = "utf-8";

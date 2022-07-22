@@ -1,12 +1,10 @@
 package com.epam.ynairlineepam.controller.filter;
 
 
-
 import com.epam.ynairlineepam.command.Command;
 import com.epam.ynairlineepam.command.CommandProvider;
 import com.epam.ynairlineepam.command.exception.CommandInitializationException;
 import com.epam.ynairlineepam.command.exception.CommandNotFoundException;
-import com.epam.ynairlineepam.command.impl.user.AddNewUserCommand;
 import org.apache.log4j.Logger;
 import org.apache.xerces.parsers.DOMParser;
 import org.w3c.dom.Document;
@@ -34,6 +32,10 @@ public class CommandFilterPage implements Filter {
 
     private static final String WELCOME_PAGE = "WelcomePage";
 
+    private static final String USER_ID_SESSION = "idUser";
+    private static final String USER_LOGIN_SESSION = "loginUser";
+    private static final String USER_ROLE_SESSION = "roleUser";
+
     private static final int PAGE_NOT_FOUND_ERROR = 404;
 
     private static final String NAME = "name";
@@ -47,8 +49,8 @@ public class CommandFilterPage implements Filter {
             parser.parse(new InputSource(this.getClass().getResourceAsStream(XML_PATH)));
             Document document = parser.getDocument();
             this.parseHandler(document.getDocumentElement());
-        } catch(SAXException | IOException | IllegalAccessException | InstantiationException | ClassNotFoundException e){
-             logger.error(e);
+        } catch (SAXException | IOException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            logger.error(e);
             throw new CommandInitializationException("Can't initialize commands", e);
         }
     }
@@ -59,15 +61,21 @@ public class CommandFilterPage implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String command = request.getParameter(COMMAND);
 
-        if (command != null && request.getMethod().equals(commands.get(command))) {
-            filterChain.doFilter(request, response);
-        } else {
-            try {
+        try {
+            if (command != null && request.getMethod().equals(commands.get(command))) {
+
+                if (request.getSession().getAttribute(USER_LOGIN_SESSION) == null) {
+                    CommandProvider.getInstance().getCommand(WELCOME_PAGE).execute(request, response);
+                } else {
+                    filterChain.doFilter(request, response);
+                }
+
+            } else {
                 CommandProvider.getInstance().getCommand(WELCOME_PAGE).execute(request, response);
-            } catch (CommandNotFoundException e) {
-                logger.error(e);
-                response.sendError(PAGE_NOT_FOUND_ERROR);
             }
+        } catch (CommandNotFoundException e) {
+            logger.error(e);
+            response.sendError(PAGE_NOT_FOUND_ERROR);
         }
     }
 
@@ -79,7 +87,7 @@ public class CommandFilterPage implements Filter {
     private void parseHandler(Element root) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         CommandProvider manager = CommandProvider.getInstance();
         NodeList cmd = root.getElementsByTagName(COMMAND);
-        for(int i = 0; i < cmd.getLength(); i++){
+        for (int i = 0; i < cmd.getLength(); i++) {
             Element element = (Element) cmd.item(i);
             String name = this.getSingleChildContent(element, NAME);
             String method = this.getSingleChildContent(element, METHOD);
@@ -89,7 +97,7 @@ public class CommandFilterPage implements Filter {
         }
     }
 
-    private String getSingleChildContent(Element element, String childName){
+    private String getSingleChildContent(Element element, String childName) {
         return element.getElementsByTagName(childName).item(0).getTextContent();
     }
 }

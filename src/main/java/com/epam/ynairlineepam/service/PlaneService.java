@@ -17,6 +17,10 @@ public interface PlaneService {
 
     List<Plane> getListDepartingPlane() throws ServiceException;
 
+    void deleteEmployeeFromPlane(int idUser, int idPlane) throws ServiceException;
+
+    List<Plane> getListDepartingPlaneUser(int idUser) throws ServiceException;
+
     List<Plane> getAllPlaneList() throws ServiceException;
 
     HashMap<UserDetails,String> getFreeEmployee(int idPlane,String position) throws ServiceException;

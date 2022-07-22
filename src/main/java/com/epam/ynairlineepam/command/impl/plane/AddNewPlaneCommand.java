@@ -1,7 +1,6 @@
 package com.epam.ynairlineepam.command.impl.plane;
 
 import com.epam.ynairlineepam.command.Command;
-import com.epam.ynairlineepam.command.impl.user.AddNewUserCommand;
 import com.epam.ynairlineepam.command.util.CommandHelper;
 import com.epam.ynairlineepam.service.PlaneService;
 import com.epam.ynairlineepam.service.exception.ServiceException;
@@ -11,7 +10,6 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class AddNewPlaneCommand implements Command {

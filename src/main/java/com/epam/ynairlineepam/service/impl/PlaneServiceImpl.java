@@ -65,6 +65,46 @@ public class PlaneServiceImpl implements PlaneService {
     }
 
     @Override
+    public void deleteEmployeeFromPlane(int idUser, int idPlane) throws ServiceException {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        PlaneDAO planeDAO = daoFactory.getMySQLPlaneDAO();
+        try {
+            planeDAO.deleteEmployeeFromPlane(idUser,idPlane);
+        } catch (DAOException e) {
+            throw new ServiceException("Can not delete plane Service."+e);
+        }
+    }
+
+    @Override
+    public List<Plane> getListDepartingPlaneUser(int idUser) throws ServiceException {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        PlaneDAO planeDAO = daoFactory.getMySQLPlaneDAO();
+        List<Plane> planeList = null;
+        try {
+            planeList = planeDAO.getListDepartingPlaneUser(idUser);
+            Collections.sort(planeList, new Comparator<Plane>() {
+                final SimpleDateFormat formatterPlane = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
+                @Override
+                public int compare(Plane plane1, Plane plane2) {
+                    Calendar datePlane1 = Calendar.getInstance();
+                    Calendar datePlane2 = Calendar.getInstance();
+                    try {
+                        datePlane1.setTime(formatterPlane.parse(plane1.getDepartureDateTime()));
+                        datePlane2.setTime(formatterPlane.parse(plane2.getDepartureDateTime()));
+                        return datePlane1.compareTo(datePlane2);
+                    } catch (ParseException e) {
+                        return -1;
+                    }
+                }
+            });
+
+        } catch (DAOException e) {
+            throw new ServiceException("Can not get plane list Service."+e);
+        }
+        return planeList;
+    }
+
+    @Override
     public List<Plane> getAllPlaneList() throws ServiceException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         PlaneDAO planeDAO = daoFactory.getMySQLPlaneDAO();

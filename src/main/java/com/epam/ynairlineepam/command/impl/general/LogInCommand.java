@@ -1,7 +1,6 @@
 package com.epam.ynairlineepam.command.impl.general;
 
 import com.epam.ynairlineepam.command.Command;
-import com.epam.ynairlineepam.command.impl.plane.AddNewPlaneCommand;
 import com.epam.ynairlineepam.entity.User;
 import com.epam.ynairlineepam.service.SiteService;
 import com.epam.ynairlineepam.service.exception.ServiceException;
